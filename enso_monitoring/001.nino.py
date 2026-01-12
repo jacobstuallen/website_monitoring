@@ -41,17 +41,18 @@ else:
     YYYYMMDD = str(date).replace('-','')
 
 # For testing
-YYYYMMDD = "20251227"
-print(date)
-date = "2025-12-27"
+#YYYYMMDD = "20251227"
+#print(date)
+#date = "2025-12-27"
 
 # project dirs
 proj_dir = '/glade/u/home/jsallen/projects/swift/'
 data_dir = '/glade/u/home/jsallen/projects/swift/data/'+YYYYMMDD
+path     = '/glade/work/jsallen/projects/swift/enso_monitoring/'
 
 # Swift logo
 # ----------
-im = plt.imread('images/website.logo.png') # insert local path of the image.
+im = plt.imread(f'{path}images/website.logo.png') # insert local path of the image.
 
 # ENSO Indices
 indices  = ['ANOM', 'ANOM.1', 'ANOM.2', 'ANOM.3']
@@ -142,5 +143,5 @@ for i, index in enumerate(indices):
     fig.text(0.095, 0.050, 'JSA', fontsize=18, 
              ha='left', va='center', fontweight='bold')
 
-    plt.savefig(f'figures/nino{save_str[i]}.png', dpi=500)
-    plt.show()
+    plt.savefig(f'{path}figures/nino{save_str[i]}.png', dpi=500)
+    #plt.show()

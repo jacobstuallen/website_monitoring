@@ -42,7 +42,7 @@ YYYY = date[:-4]
 proj_dir = '/glade/u/home/jsallen/projects/swift/'
 data_dir = '/glade/u/home/jsallen/projects/swift/data/'+ date
 
-file_pattern = '../data/'+YYYYMMDD+'/cdas1.t*z.pgrbf01.grib2'
+file_pattern = f'{proj_dir}/data/'+YYYYMMDD+'/cdas1.t*z.pgrbf01.grib2'
 
 print("Loading forecast variables...")
 

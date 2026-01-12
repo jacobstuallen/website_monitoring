@@ -34,17 +34,18 @@ else:
     YYYYMMDD = str(date).replace('-','')
 
 # For testing
-YYYYMMDD = "20251227"
-print(date)
-date = "2025-12-27"
+#YYYYMMDD = "20251227"
+#print(date)
+#date = "2025-12-27"
 
 # project dirs
 proj_dir = '/glade/u/home/jsallen/projects/swift/'
 data_dir = '/glade/u/home/jsallen/projects/swift/data/'+YYYYMMDD
+path     = '/glade/work/jsallen/projects/swift/enso_monitoring/'
 
 # Swift logo
 # ----------
-im = plt.imread('images/website.logo.png') # insert local path of the image.
+im = plt.imread(f'{path}images/website.logo.png') # insert local path of the image.
 
 def plot(ax):
   ax.add_feature(cfeature.LAND, facecolor='white', zorder=5)
@@ -138,5 +139,5 @@ for yy in range (1,4):
         right=0.92, hspace=0.2, wspace=0.2)
 
     plt.savefig('figures/002.enso-hov.{}.png'.format(yy),  dpi=400)
-    plt.show()
+    #plt.show()
 

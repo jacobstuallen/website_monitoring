@@ -36,6 +36,7 @@ else:
 # project dirs
 proj_dir = '/glade/u/home/jsallen/projects/swift/'
 data_dir = '/glade/u/home/jsallen/projects/swift/data/'+YYYYMMDD
+path     = '/glade/u/home/jsallen/projects/swift/monitoring/'
 
 def plot(ax):
   ax.add_feature(cfeature.LAND, facecolor='gainsboro', alpha=0.5)
@@ -44,12 +45,14 @@ def plot(ax):
 
 # Swift logo
 # ----------
-im = plt.imread('images/website.logo.png') # insert local path of the image.
+im = plt.imread(f'{path}images/website.logo.png') # insert local path of the image.
 
 # Load z500
 # ---------
 fname= data_dir+'/ivt.cfs.nc'
 ivt = xr.open_dataset(fname)['__xarray_dataarray_variable__']
+
+print(ivt)
 
 fname= data_dir+'/mslp.cfs.nc'
 mslp = xr.open_dataset(fname)['sp'] / 100
@@ -100,15 +103,6 @@ ax.clabel(cs, cs.levels, inline=True, fontsize=5)
 
 plot(ax)
 
-cbar_ax = fig.add_axes([0.30,0.09,0.60,0.02])
-plt.colorbar(cf, orientation='horizontal', cax=cbar_ax)
-
-newax = fig.add_axes([0.02,0.02,0.07,0.07], anchor='SW', zorder=1)
-newax.imshow(im)
-newax.axis('off')
-fig.text(0.095, 0.050, 'JSA', fontsize=18,
-         ha='left', va='center', fontweight='bold')
-
 ax.annotate('CFSv2.1 Integrated Vapor Transport',
         (0.50,0.94),
         ha='center', va='bottom', 
@@ -121,18 +115,24 @@ ax.annotate(date,
         xycoords='figure fraction',
         fontsize=10)
 
-ax.annotate('Swift\nClimate and Weather', (0.08,0.090), 
-        ha='left', va='center',
-        xycoords='figure fraction')
-
-ax.annotate('$Kg*(m/s)^{-1}$', (0.90,0.14), 
+# ------------------------
+cbar_ax = fig.add_axes([0.25,0.09,0.50,0.03])
+plt.colorbar(cf, orientation='horizontal', cax=cbar_ax)#, label='°C')
+newax = fig.add_axes([0.03,0.03,0.09,0.09], anchor='SW', zorder=1)
+newax.imshow(im)
+newax.axis('off')
+fig.text(0.085, 0.060, 'JSA', fontsize=16,
+             ha='left', va='center', fontweight='bold')
+ax.annotate('$Kg*(m/s)^{-1}$', (0.76,0.09), 
         xycoords='figure fraction',
-        ha='right', va='center', fontsize=12)
+        ha='left', va='center', fontsize=14)
+# ------------------------
+
 
 fig.subplots_adjust(
         left=0.05, right=0.95,
         bottom=0.15, top=0.90)
 
-plt.savefig('global/004.ivt.png', bbox_inches='tight', dpi=400)
+plt.savefig(f'{path}global/004.ivt.png', bbox_inches='tight', dpi=400)
 plt.show()
 

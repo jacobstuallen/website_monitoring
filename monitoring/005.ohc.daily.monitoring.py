@@ -37,10 +37,11 @@ else:
 # project dirs
 proj_dir = '/glade/u/home/jsallen/projects/swift/'
 data_dir = '/glade/u/home/jsallen/projects/swift/data/'+YYYYMMDD
+path     = '/glade/u/home/jsallen/projects/swift/monitoring/'
 
 # Swift logo
 # ----------
-im = plt.imread('images/website.logo.png') # insert local path of the image.
+im = plt.imread(f'{path}images/website.logo.png') # insert local path of the image.
 
 def plot(ax):
   ax.add_feature(cfeature.LAND, facecolor='white', zorder=5)
@@ -89,7 +90,7 @@ plt.contour(X, Y, ds,
         linewidths=0.06,
         transform=tcrs)
 
-cbar_ax = fig.add_axes([0.30,0.09,0.60,0.02])
+#cbar_ax = fig.add_axes([0.30,0.09,0.60,0.02])
 
 import matplotlib.ticker as tk
 levels=np.arange(3.35,3.69,0.03)
@@ -98,15 +99,9 @@ def my_func(x, pos):
     return str(label)
 
 fmt1 = tk.FuncFormatter(my_func)
-cbar = fig.colorbar(cf, orientation='horizontal', format=fmt1, cax=cbar_ax)
+#cbar = fig.colorbar(cf, orientation='horizontal', format=fmt1, cax=cbar_ax)
 
 plot(ax)
-
-newax = fig.add_axes([0.02,0.02,0.07,0.07], anchor='SW', zorder=1)
-newax.imshow(im)
-newax.axis('off')
-fig.text(0.095, 0.050, 'JSA', fontsize=18,
-         ha='left', va='center', fontweight='bold')
 
 ax.annotate('CFSv2 Ocean Heat Content',
         (0.50,0.94),
@@ -120,18 +115,24 @@ ax.annotate(date,
         xycoords='figure fraction',
         fontsize=10)
 
-ax.annotate('Swift\nClimate and Weather', (0.08,0.090), 
-        ha='left', va='center',
-        xycoords='figure fraction')
-
-ax.annotate('$1*10^{11}       J/m^{2}$', (0.90,0.14), 
+# ------------------------
+cbar_ax = fig.add_axes([0.25,0.09,0.50,0.03])
+plt.colorbar(cf, orientation='horizontal', cax=cbar_ax)#, label='°C')
+newax = fig.add_axes([0.03,0.03,0.09,0.09], anchor='SW', zorder=1)
+newax.imshow(im)
+newax.axis('off')
+fig.text(0.085, 0.060, 'JSA', fontsize=16,
+             ha='left', va='center', fontweight='bold')
+ax.annotate('$1*10^{11} J/m^{2}$', (0.76,0.09),
         xycoords='figure fraction',
-        ha='right', va='center', fontsize=10)
+        ha='left', va='center', fontsize=14)
+# ------------------------
+
 
 fig.subplots_adjust(
         left=0.05, right=0.95,
         bottom=0.15, top=0.90)
 
-plt.savefig('ohc.global.png',  dpi=400)
-plt.show()
+plt.savefig(f'{path}global/ohc.global.png',  dpi=400)
+#plt.show()
 
